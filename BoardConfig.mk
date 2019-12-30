@@ -77,8 +77,8 @@ TW_MAX_BRIGHTNESS := 249
 TW_DEFAULT_BRIGHTNESS := 130
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INCLUDE_NTFS_3G := true
-TARGET_RECOVERY_DEVICE_MODULES := libcryptfs_hw  #strace
-#TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT_OPTIONAL_EXECUTABLES)/strace
+TARGET_RECOVERY_DEVICE_MODULES := libcryptfs_hw  twrpdec #strace
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
 
 # We can use the factory reset button combo to enter recovery safely
 TW_IGNORE_MISC_WIPE_DATA := true
@@ -87,12 +87,13 @@ TW_IGNORE_MISC_WIPE_DATA := true
 #TW_NO_EXFAT_FUSE := true
 
 # Encryption support
-#TARGET_CRYPTFS_HW_PATH := device/qcom/common/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
 TW_INCLUDE_CRYPTO := true
 TARGET_USE_UFS_ICE := true
 TARGET_HW_DISK_ENCRYPTION := true
-#TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd hwservicemanager keymaster-3-0 servicemanager
-#TW_CRYPTO_SYSTEM_VOLD_MOUNT := firmware system persist-lg
+LEGACY_HW_DISK_ENCRYPTION := true
+TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd servicemanager hwservicemanager vndservicemanager keymaster-3-0
+TW_CRYPTO_SYSTEM_VOLD_MOUNT := firmware persist-lg encrypt system eksst
 #WITH_CRYPTO_UTILS := true
 
 # Debug flags
