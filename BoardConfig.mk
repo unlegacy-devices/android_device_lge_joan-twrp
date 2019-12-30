@@ -68,6 +68,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 #TARGET_USERIMAGES_USE_F2FS := true
 
 # TWRP specific build flags
+#TW_USE_TOOLBOX := true
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -77,7 +78,7 @@ TW_MAX_BRIGHTNESS := 249
 TW_DEFAULT_BRIGHTNESS := 130
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INCLUDE_NTFS_3G := true
-TARGET_RECOVERY_DEVICE_MODULES := libcryptfs_hw  twrpdec #strace
+TARGET_RECOVERY_DEVICE_MODULES := libcryptfs_hw twrpdec #strace
 TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
 
 # We can use the factory reset button combo to enter recovery safely
@@ -97,12 +98,12 @@ TW_CRYPTO_SYSTEM_VOLD_MOUNT := firmware persist-lg encrypt system eksst
 #WITH_CRYPTO_UTILS := true
 
 # Debug flags
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
+#TWRP_INCLUDE_LOGCAT := true
+#TARGET_USES_LOGD := true
 TW_EXCLUDE_TWRPAPP := true
-TW_DEVICE_VERSION := 1
+TW_DEVICE_VERSION := 0
 #TWRP_EVENT_LOGGING := true
-TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
+#TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
 
 # Asian region languages
 TW_EXTRA_LANGUAGES := true

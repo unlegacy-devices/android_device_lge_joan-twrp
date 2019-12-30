@@ -3,7 +3,7 @@
 /system_image	emmc	/dev/block/bootdevice/by-name/system
 #/vendor			ext4	/dev/block/bootdevice/by-name/vendor	flags=backup=1;wipeingui;removable
 #/vendor_image	emmc	/dev/block/bootdevice/by-name/vendor	flags=backup=0;flashimg
-/data			ext4	/dev/block/bootdevice/by-name/userdata	flags=encryptable=/dev/block/bootdevice/by-name/encrypt;length=-40960
+/data			ext4	/dev/block/bootdevice/by-name/userdata	flags=length=-40960;encryptable=/dev/block/bootdevice/by-name/encrypt
 /data_image		emmc	/dev/block/bootdevice/by-name/userdata	flags=backup=1;display="Data incl. storage: BIG extSD needed!"
 /firmware		vfat	/dev/block/bootdevice/by-name/modem		flags=mounttodecrypt;fsflags=context=u:object_r:firmware_file:s0;backup=0
 /modem			emmc	/dev/block/bootdevice/by-name/modem		flags=backup=1;display="Modem";flashimg
