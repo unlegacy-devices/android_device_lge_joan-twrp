@@ -1,4 +1,4 @@
-import init.lge.system.log.rc
+#import init.lge.system.log.rc
 #import init.lge.usb.rc
 import init.msm8998.rc
 import init.qcom.rc
@@ -255,7 +255,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
 
 on init
     start sys_hwservicemanager
-    setprop crypto.ready 1
 
 on property:sys.listeners.registered=true
     start ven_keymaster-3-0
@@ -276,82 +275,11 @@ service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
     user system
     writepid /dev/cpuset/system-background/tasks
 
-#service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
-#    class core
-#    user root
-#    group root readproc
-#    writepid /dev/cpuset/system-background/tasks
-#    shutdown critical
-
-#service vold /system/bin/vold \
-#        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
-#        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
-#    class core
-#    writepid /dev/cpuset/foreground/tasks
-#    group root reserved_disk
-
-# One shot invocation to deal with encrypted volume.
 on defaultcrypto
     exec - root -- /sbin/vdc_pie --wait cryptfs mountdefaultencrypted
-    # vold will set vold.decrypt to trigger_restart_framework (default
-    # encryption) or trigger_restart_min_framework (other encryption)
-
-# One shot invocation to encrypt unencrypted volumes
-#on encrypt
-#    start surfaceflinger
-#    exec - root -- /system/bin/vdc --wait cryptfs enablecrypto
-    # vold will set vold.decrypt to trigger_restart_framework (default
-    # encryption)
-
-service qcomsysd /system/vendor/bin/qcom-system-daemon
-    class main
-    user root
-    group root diag oem_2901
-    disabled
-
-on property:persist.vendor.qcomsysd.enabled=1
-    enable qcomsysd
-
-on property:persist.vendor.qcomsysd.enabled=0
-    stop qcomsysd
-
-on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
-    start cnss_diag
-
-service qcom-c_main-sh /vendor/bin/init.class_main.sh
-    class main
-    user root
-    oneshot
-
-service cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
-   class main
-   user system
-   group system wifi inet sdcard_rw media_rw diag
-   oneshot
 
 on post-fs-data && && property:ro.crypto.type=block
     exec_background - system log -- /system/bin/bootstat -r post_decrypt_time_elapsed
 
-service uncrypt /system/bin/uncrypt
-    class main
-    socket uncrypt stream 600 system system
-    disabled
-    oneshot
-
-service setup-bcb /system/bin/uncrypt --setup-bcb
-    class main
-    socket uncrypt stream 600 system system
-    disabled
-    oneshot
-
-service clear-bcb /system/bin/uncrypt --clear-bcb
-    class main
-    socket uncrypt stream 600 system system
-    disabled
-    oneshot
-
 on property:product.lge.vold.publicvolume_uuid=*
     setprop vendor.lge.vold.publicvolume_uuid ${product.lge.vold.publicvolume_uuid}
-
-
