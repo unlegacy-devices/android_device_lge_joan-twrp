@@ -3,7 +3,7 @@
 /system_image	emmc	/dev/block/bootdevice/by-name/system
 #/vendor			ext4	/dev/block/bootdevice/by-name/vendor	flags=backup=1;wipeingui;removable
 #/vendor_image	emmc	/dev/block/bootdevice/by-name/vendor	flags=backup=0;flashimg
-/data			auto	/dev/block/bootdevice/by-name/userdata  flags=encryptable=/dev/block/bootdevice/by-name/encrypt
+/data			ext4	/dev/block/bootdevice/by-name/userdata  flags=encryptable=/dev/block/bootdevice/by-name/encrypt
 /data_image		emmc	/dev/block/bootdevice/by-name/userdata	flags=backup=1;display="Data incl. storage: BIG extSD needed!"
 /firmware		vfat	/dev/block/bootdevice/by-name/modem		flags=mounttodecrypt;fsflags=context=u:object_r:firmware_file:s0;backup=0
 /modem			emmc	/dev/block/bootdevice/by-name/modem		flags=backup=1;display="Modem";flashimg
@@ -19,4 +19,4 @@
 /external_sd	vfat	/dev/block/mmcblk0p1 /dev/block/mmcblk0	flags=display="mSDcard";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
 /usb-otg		vfat	/dev/block/sdh1 /dev/block/sdh			flags=display="USB-OTG";storage;wipeingui;removable
 /misc			emmc	/dev/block/bootdevice/by-name/misc
-/cache			auto	/dev/block/bootdevice/by-name/cache		flags=backup=0
+/cache			ext4	/dev/block/bootdevice/by-name/cache		flags=backup=0
