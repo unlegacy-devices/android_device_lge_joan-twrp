@@ -1,9 +1,4 @@
-#import init.lge.system.log.rc
-#import init.lge.usb.rc
-import init.msm8998.rc
-import init.qcom.rc
 import init.recovery.usb.rc
-import init.target.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -14,7 +9,6 @@ on early-init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-#    mount_all fstab.joan
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
@@ -38,190 +32,6 @@ on post-fs
     write /dev/ipa 1
 
 on post-fs-data
-    mkdir /mnt/vendor/sns/cal/ 0755 system system
-    chown system system /mnt/vendor/sns/cal/sns.reg
-    chown system system /mnt/vendor/sns/cal/cal_data.txt
-    mkdir /data/vendor/factory 0775 system system
-    mkdir /mnt/vendor/persist-lg/startday 0770 system radio
-    chown system radio /mnt/vendor/persist-lg/startday
-    chmod 0770 /mnt/vendor/persist-lg/startday
-    chown radio radio /dev/at_mdm0
-    chmod 0660 /dev/at_mdm0
-    chown system system /sys/class/android_usb/android0/lock
-    chmod 0664 /sys/class/android_usb/android0/lock
-    chown system system /sys/kernel/atd_mid/atd_status
-    chmod 0660 /sys/kernel/atd_mid/atd_status
-    mkdir /data/ramoops 0755 root log
-    mkdir /mnt/vendor/persist-lg/lgdata 0771 radio radio
-    mkdir /mnt/vendor/persist-lg/widevine 0770 drm system
-    mkdir /mnt/vendor/persist-lg/firmware 0771 system system
-    mkdir /mnt/vendor/persist-lg/chargerlogo 0771 system system
-    mkdir /mnt/vendor/persist-lg/thermal 0771 root shell
-    rm /mnt/vendor/persist-lg/rct
-    rm /mnt/vendor/persist-lg/rct.cfg
-    mkdir /vendor/persist-lg/mms 0770 system vendor_lgmms
-    mkdir /vendor/persist-lg/mmoprt 0771 system system
-    mkdir /vendor/persist-lg/encryption 0771 system system
-    mkdir /vendor/persist-lg/secureks 0770 system system
-    mkdir /vendor/persist-lg/stblvd 0771 system system
-    chmod 770 /vendor/persist-lg/stblvd/dkp
-    chmod 770 /vendor/persist-lg/stblvd/srmp
-    mkdir /vendor/persist-lg/cardinal 0770 system system
-    chown root system /data/dontpanic
-    chmod 0775 /data/dontpanic
-    chmod 0660 /sys/class/graphics/fb0/sp_link_backlight_off
-    chown system system /sys/class/graphics/fb0/sp_link_backlight_off
-    chmod 0660 /sys/devices/virtual/input/lge_touch/sp_link_touch_off
-    chown system system /sys/devices/virtual/input/lge_touch/sp_link_touch_off
-    mkdir /data/app-system 0771 system system
-    mkdir /mnt/vendor/persist-lg/lgdata 0775 radio radio
-    rm /data/data/.bnr_fifo_rly
-    rm /data/data/.bnr_fifo_req
-    restorecon /mnt/vendor/persist-lg
-    restorecon_recursive /mnt/vendor/persist-lg
-    restorecon /mnt/vendor/sns
-    restorecon_recursive /mnt/vendor/sns
-    restorecon /mnt/vendor/mpt
-    restorecon_recursive /mnt/vendor/mpt
-    restorecon /mnt/vendor/persist
-    restorecon_recursive /mnt/vendor/persist
-    restorecon /cust
-    restorecon_recursive /cust
-    restorecon /mnt/vendor/eri
-    restorecon_recursive /mnt/vendor/eri
-    restorecon /mnt/vendor/ve
-    restorecon_recursive /mnt/vendor/ve
-    restorecon /mnt/vendor/OneSeg
-    restorecon_recursive /mnt/vendor/OneSeg
-    restorecon /dev/iwland
-    restorecon /data/preload
-    restorecon_recursive /data/preload
-    restorecon /mnt/vendor/power
-    restorecon_recursive /mnt/vendor/power
-    restorecon /mnt/vendor/absolute
-    restorecon_recursive /mnt/vendor/absolute
-    restorecon /mnt/vendor/qni
-    restorecon_recursive /mnt/vendor/qni
-    restorecon /mnt/vendor/power
-    restorecon_recursive /mnt/vendor/power
-    restorecon /oem
-    restorecon_recursive /oem
-    restorecon /oem/OP
-    restorecon_recursive /oem/OP
-    exec - system system -- /vendor/bin/cpfirmware widevine /mnt/vendor/persist-lg/firmware
-    mkdir /mnt/vendor/persist-lg/callduration 0770 system radio
-    chown system radio system /mnt/vendor/persist-lg/callduration
-    chmod 0770 /mnt/vendor/persist-lg/callduration
-    mkdir /vendor/persist-lg/rtnlastdate 0770 system radio
-    mkdir mnt/vendor/persist-lg/camera 0771 cameraserver radio
-    mkdir /data/vendor/touch 0771 system system
-    mkdir /data/vendor/km 0770 system system
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    mkdir /data/vendor/hbtp 0750 system system
-    mkdir /data/logger 0775 system root
-    mkdir /data/logger/setup 0770 system root
-    chmod 0771 /cache
-    mkdir /cache/encryption_log 0775 system root
-    mkdir /persist/encryption_log 0775 system system
-    mkdir /mnt/product/els/encryption_log 0775 root root
-    mkdir /data/vendor/misc 01771 system system
-    mkdir /data/vendor/ssrdump 0770 root system
-    mkdir /data/vendor/display 0770 system graphics
-    mkdir /data/vendor/lm 0700 root root
-    mkdir /data/vendor/media 0770 mediacodec media
-    mkdir /data/vendor/qdmastats 0700 system system
-    mkdir /data/vendor/qdma 0770 system system
-    mkdir /dev/socket/qdma 0770 system system
-    chmod 2770 /dev/socket/qdma
-    mkdir /data/vendor/tzstorage 0770 system system
-    mkdir /data/vendor/qtee 0770 system system
-    mkdir /data/vendor/camera 0770 camera camera
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
-    mkdir /data/vendor/tombstones 0771 system system
-    mkdir /data/vendor/ramdump 0771 root system
-    mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
-    mkdir /data/vendor/ramdump/bluetooth 0770 bluetooth bluetooth
-    mkdir /data/vendor/wifi 0770 wifi wifi
-    mkdir /data/vendor/wifi/sockets 0770 wifi wifi
-    mkdir /data/vendor/wifi/hostapd 0770 wifi wifi
-    mkdir /data/vendor/wifi/hostapd/ctrl 0770 wifi wifi
-    mkdir /data/vendor/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/vendor/wifi/wigig_hostapd 0770 wifi wifi
-    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
-    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
-    mkdir /mnt/vendor/persist-lg/wifi 0770 wifi wifi
-    chown wifi system /mnt/vendor/persist-lg/wifi/wlan_mac.bin
-    chmod 660 /mnt/vendor/persist-lg/wifi/wlan_mac.bin
-    chown wifi system /mnt/vendor/persist-lg/wifi/WCNSS_qcom_cfg.ini
-    chmod 660 /mnt/vendor/persist-lg/wifi/WCNSS_qcom_cfg.ini
-    mkdir /data/vendor/port_bridge 0770 radio radio
-    chmod 0770 /data/vendor/port_bridge
-    mkdir /data/vendor/netmgr 0770 radio radio
-    chmod 0770 /data/vendor/netmgr
-    mkdir /data/vendor/ipa 0770 radio radio
-    chmod 0770 /data/vendor/ipa
-    mkdir /data/vendor/dataqti 0770 radio radio
-    chmod 0770 /data/vendor/dataqti
-    mkdir /data/vendor/connectivity 0771 radio radio
-    chown radio radio /data/vendor/connectivity
-    mkdir /data/vendor/audio 0770 audio audio
-    mkdir /data/vendor/audio/acdbdata 0770 media audio
-    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
-    mkdir /data/vendor/radio 0770 system radio
-    mkdir /data/vendor/modem_config 0570 radio root
-    chown root system /persist
-    chmod 0771 /persist
-    chown system system /persist/WCNSS_qcom_wlan_nv.bin
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
-    mkdir /data/system 0775 system system
-    mkdir /data/vendor/location 0770 gps gps
-    mkdir /data/vendor/location/mq 0770 gps gps
-    mkdir /data/vendor/location/xtwifi 0770 gps gps
-    mkdir /dev/socket/location 0770 gps gps
-    mkdir /dev/socket/location/mq 0770 gps gps
-    mkdir /dev/socket/location/xtra 0770 gps gps
-    mkdir /data/shared 0755
-    chown system system /data/shared
-    mkdir /data/fota 0771
-    chown system system /data/fota
-    mkdir /data/hostapd 0770 system wifi
-    mkdir /data/vendor/time/ 0700 system system
-    mkdir /data/data/media 0770 media media
-    mkdir /data/vendor/fm 0770 system system
-    chmod 0770 /data/vendor/fm
-    mkdir /data/vendor/perfd 0770 root system
-    chmod 2770 /data/vendor/perfd
-    rm /data/vendor/perfd/default_values
-    mkdir /data/vendor/iop 0700 root system
-    write /data/vendor/radio/copy_complete 0
-    chown radio radio /data/vendor/radio/copy_complete
-    chmod 0660 /data/vendor/radio/copy_complete
-    mkdir /data/vendor/qti-logkit/ 0771 system system
-    mkdir /data/vendor/qti-logkit/shared-privileged/ 2770 system system
-    mkdir /data/vendor/qti-logkit/shared-public/ 2770 system diag
-    mkdir /data/vendor/qti-logkit/socket-privileged/ 2770 system system
-    mkdir /data/vendor/qti-logkit/socket-public/ 2750 system diag
-    mkdir /data/vendor/qti-logkit/logdata/ 2750 system shell
-    mkdir /data/vendor/swap 0770 root system
-    chmod 2770 /data/vendor/swap
-    write /sys/block/dm-0/queue/read_ahead_kb 2048
-    write /sys/block/dm-1/queue/read_ahead_kb 2048
-    mkdir /data/vendor/vpp 0770 media media
-    mkdir /data/FTM_AP 0775 system system
-    mkdir /data/vendor/tui 0600 system drmrpc
-    start vendor.move_time_data
     setprop vold.post_fs_data_done 1
 
 service tui_comm-1-0 /vendor/bin/hw/vendor.qti.hardware.tui_comm@1.0-service-qti
@@ -259,27 +69,14 @@ on init
 on property:sys.listeners.registered=true
     start ven_keymaster-3-0
     start gatekeeper-1-0
+    start gatekeeperd
     start sys_servicemanager
     start vndservicemanager
-
-service wait_for_keymaster /sbin/wait_for_keymaster
-    user root
-    group root system
-    priority -20
-    ioprio rt 0
-    seclabel u:r:recovery:s0
-    class hal
 
 service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
     class late_start
     user system
     writepid /dev/cpuset/system-background/tasks
-
-on defaultcrypto
-    exec - root -- /sbin/vdc_pie --wait cryptfs mountdefaultencrypted
-
-on post-fs-data && && property:ro.crypto.type=block
-    exec_background - system log -- /system/bin/bootstat -r post_decrypt_time_elapsed
 
 on property:product.lge.vold.publicvolume_uuid=*
     setprop vendor.lge.vold.publicvolume_uuid ${product.lge.vold.publicvolume_uuid}
