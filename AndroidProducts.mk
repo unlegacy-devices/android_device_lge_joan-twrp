@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-PRODUCT_MAKEFILES := \	
-		$(LOCAL_DIR)/twrp_joan.mk
+PRODUCT_MAKEFILES := \
+	$(LOCAL_DIR)/twrp_joan.mk
 
 COMMON_LUNCH_CHOICES := twrp_joan-eng
 
